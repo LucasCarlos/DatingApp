@@ -11,7 +11,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
-  bsModalRf: BsModalRef<RolesModalComponent> =
+  bsModalRef: BsModalRef<RolesModalComponent> =
     new BsModalRef<RolesModalComponent>();
   availableRoles = ['Admin', 'Moderator', 'Member'];
 
@@ -39,10 +39,10 @@ export class UserManagementComponent implements OnInit {
         selectedRoles: [...user.roles],
       },
     };
-    this.bsModalRf = this.modalService.show(RolesModalComponent, config);
-    this.bsModalRf.onHide?.subscribe({
+    this.bsModalRef = this.modalService.show(RolesModalComponent, config);
+    this.bsModalRef.onHide?.subscribe({
       next: () => {
-        const selectedRoles = this.bsModalRf.content?.selectedRoles;
+        const selectedRoles = this.bsModalRef.content?.selectedRoles;
         if (selectedRoles && !this.arrayEqual(selectedRoles, user.roles)) {
           this.adminService.updateUserRoles(user.userName, selectedRoles).subscribe({
             next: roles => user.roles = roles
